@@ -9,6 +9,7 @@ export default class Login extends Component {
     handlePassword = ({ target }) => { this.setState({ password: target.value }) }
     handleSubmit = (event) => {
         event.preventDefault();
+        this.props.history.push('/blogs')
         this.props.login(this.state.username, this.state.password)
     }
 

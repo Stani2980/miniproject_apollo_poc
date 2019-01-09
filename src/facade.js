@@ -20,17 +20,17 @@ function makeFetchOptions(type, b) {
     }
 }
 
-async function login(user, pass) {
-    console.log()
-    const options = await makeFetchOptions("POST", { username: user, password: pass });
+async function login(username, password) {
+    const options = await makeFetchOptions('POST', { username: username, password: password});
     let loggedInUser = {}
-    await fetch(URL + "/api/users/login", options, true)
+    await fetch(URL + "/api/user/loginReact", options)
         .then(handleHttpErrors)
         .then(res => loggedInUser = res)
         .catch(function (error) {
             console.log('ERROR : There has been a problem with your fetch operation: ' + error.message);
             return error.message;
         });
+    console.log(JSON.stringify(loggedInUser))
     return loggedInUser;
 }
 

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Login from './Login';
 import Register from './Register';
+import Blogs from './Blogs';
 import { login } from '../facade';
 
 class App extends Component {
@@ -15,9 +16,10 @@ class App extends Component {
   }
 
   handleLogin = async (username, password) => {
-    let user, error = await login(username, password);
-    if (error) {
-      this.setState({ error: error })
+    let user = await login(username, password);
+    // console.log(JSON.stringify(user))
+    if (!user.username) {
+      this.setState({ error: user.message })
     } else {
       this.setState({ user: user, error: '' })
     }
@@ -31,6 +33,7 @@ class App extends Component {
           {error ? (<span style={{ color: 'red' }}>{this.state.error}</span>) : ''}
           <Route exact={true} path='/' render={({history})=> <Login login={this.handleLogin} history={history} />}/>
           <Route path='/register' component={Register}/>
+          <Route path='/blogs' component={Blogs}/>
         </Container>
       </Router>
     );
